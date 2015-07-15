@@ -13,6 +13,11 @@
 		8BC6CD331B5660E600EB82AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BC6CD321B5660E600EB82AD /* Images.xcassets */; };
 		8BC6CD361B5660E600EB82AD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BC6CD341B5660E600EB82AD /* LaunchScreen.xib */; };
 		8BC6CD421B5660E600EB82AD /* TouchMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC6CD411B5660E600EB82AD /* TouchMenuTests.swift */; };
+		8BC6CD4E1B5663FF00EB82AD /* TouchMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC6CD4D1B5663FF00EB82AD /* TouchMenu.swift */; };
+		8BC6CD501B56643A00EB82AD /* TouchMenuContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC6CD4F1B56643A00EB82AD /* TouchMenuContentViewController.swift */; };
+		8BC6CD521B56644D00EB82AD /* TouchMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC6CD511B56644D00EB82AD /* TouchMenuDelegate.swift */; };
+		8BC6CD541B56645B00EB82AD /* TouchMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC6CD531B56645B00EB82AD /* TouchMenuItem.swift */; };
+		8BC6CD561B56647300EB82AD /* TouchMenuPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC6CD551B56647300EB82AD /* TouchMenuPanGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +41,12 @@
 		8BC6CD3B1B5660E600EB82AD /* TouchMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouchMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BC6CD401B5660E600EB82AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BC6CD411B5660E600EB82AD /* TouchMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchMenuTests.swift; sourceTree = "<group>"; };
+		8BC6CD4C1B56622300EB82AD /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		8BC6CD4D1B5663FF00EB82AD /* TouchMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchMenu.swift; sourceTree = "<group>"; };
+		8BC6CD4F1B56643A00EB82AD /* TouchMenuContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchMenuContentViewController.swift; sourceTree = "<group>"; };
+		8BC6CD511B56644D00EB82AD /* TouchMenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchMenuDelegate.swift; sourceTree = "<group>"; };
+		8BC6CD531B56645B00EB82AD /* TouchMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchMenuItem.swift; sourceTree = "<group>"; };
+		8BC6CD551B56647300EB82AD /* TouchMenuPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchMenuPanGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +88,7 @@
 		8BC6CD281B5660E600EB82AD /* TouchMenu */ = {
 			isa = PBXGroup;
 			children = (
+				8BC6CD4B1B56620000EB82AD /* TouchMenu */,
 				8BC6CD2B1B5660E600EB82AD /* AppDelegate.swift */,
 				8BC6CD2D1B5660E600EB82AD /* ViewController.swift */,
 				8BC6CD2F1B5660E600EB82AD /* Main.storyboard */,
@@ -110,6 +122,19 @@
 				8BC6CD401B5660E600EB82AD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8BC6CD4B1B56620000EB82AD /* TouchMenu */ = {
+			isa = PBXGroup;
+			children = (
+				8BC6CD4C1B56622300EB82AD /* Header.h */,
+				8BC6CD4D1B5663FF00EB82AD /* TouchMenu.swift */,
+				8BC6CD4F1B56643A00EB82AD /* TouchMenuContentViewController.swift */,
+				8BC6CD511B56644D00EB82AD /* TouchMenuDelegate.swift */,
+				8BC6CD531B56645B00EB82AD /* TouchMenuItem.swift */,
+				8BC6CD551B56647300EB82AD /* TouchMenuPanGestureRecognizer.swift */,
+			);
+			name = TouchMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,8 +237,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BC6CD4E1B5663FF00EB82AD /* TouchMenu.swift in Sources */,
+				8BC6CD501B56643A00EB82AD /* TouchMenuContentViewController.swift in Sources */,
+				8BC6CD521B56644D00EB82AD /* TouchMenuDelegate.swift in Sources */,
+				8BC6CD541B56645B00EB82AD /* TouchMenuItem.swift in Sources */,
 				8BC6CD2E1B5660E600EB82AD /* ViewController.swift in Sources */,
 				8BC6CD2C1B5660E600EB82AD /* AppDelegate.swift in Sources */,
+				8BC6CD561B56647300EB82AD /* TouchMenuPanGestureRecognizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +375,7 @@
 				INFOPLIST_FILE = TouchMenu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = TouchMenu/Header.h;
 			};
 			name = Debug;
 		};
@@ -355,6 +386,7 @@
 				INFOPLIST_FILE = TouchMenu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = TouchMenu/Header.h;
 			};
 			name = Release;
 		};
