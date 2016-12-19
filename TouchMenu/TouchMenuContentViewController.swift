@@ -22,7 +22,7 @@ class TouchMenuContentViewController: UIViewController
     var touchMenuLayers = [CAShapeLayer]()
     var touchMenuLabels = [UILabel]()
     
-    var drawingOffset:CGPoint = CGPointZero
+    var drawingOffset:CGPoint = CGPoint.zero
     
     weak var touchMenu: TouchMenu!
     weak var touchMenuDelegate: TouchMenuDelegate?
@@ -36,32 +36,30 @@ class TouchMenuContentViewController: UIViewController
         view.layer.addSublayer(touchMenuLayer)
         touchMenuLayer.frame = view.bounds
         
-        view.layer.shadowColor = UIColor.grayColor().CGColor
+        view.layer.shadowColor = UIColor.gray.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
         view.layer.shadowOpacity = 1
         view.layer.shadowRadius = 2
     }
     
-    required init(coder aDecoder: NSCoder)
+    required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func handleMovement(locationInView: CGPoint)
+    func handleMovement(_ locationInView: CGPoint)
     {
-        let tau = pi * 2
-        
         if touchMenuLayer.path == nil
         {
             return
         }
         
-        let drawPath = UIBezierPath(CGPath: touchMenuLayer.path)
+        let drawPath = UIBezierPath(cgPath: touchMenuLayer.path!)
         let locationInTouchMenu = CGPoint(x: locationInView.x + drawingOffset.x, y: locationInView.y + drawingOffset.y)
         
-        drawPath.addLineToPoint(locationInTouchMenu)
+        drawPath.addLine(to: locationInTouchMenu)
         
-        touchMenuLayer.path = drawPath.CGPath
+        touchMenuLayer.path = drawPath.cgPath
         
         let distanceToMenuOrigin = origin.distance(locationInTouchMenu)
         
@@ -77,11 +75,11 @@ class TouchMenuContentViewController: UIViewController
             if let touchMenuItem = touchMenuItems[segmentIndex] as TouchMenuItem? {
                 
                 if touchMenuLabels[segmentIndex].text == " " + touchMenuItem.label + " " {
-                    touchMenuLabels[segmentIndex].layer.backgroundColor = UIColor.yellowColor().CGColor
-                    touchMenuLayers[segmentIndex].strokeColor = UIColor.yellowColor().CGColor
+                    touchMenuLabels[segmentIndex].layer.backgroundColor = UIColor.yellow.cgColor
+                    touchMenuLayers[segmentIndex].strokeColor = UIColor.yellow.cgColor
                 } else {
                     touchMenuLabels[segmentIndex].alpha = 0.5
-                    touchMenuLayers[segmentIndex].strokeColor = UIColor.lightGrayColor().CGColor
+                    touchMenuLayers[segmentIndex].strokeColor = UIColor.lightGray.cgColor
                 }
                 
                 origin = locationInTouchMenu
@@ -94,15 +92,15 @@ class TouchMenuContentViewController: UIViewController
                 
                 closeTouchMenu()
                 
-                UIView.animateWithDuration(0.75, animations: {}, completion: {_ in self.touchMenu.close()})
+                UIView.animate(withDuration: 0.75, animations: {}, completion: {_ in self.touchMenu.close()})
             }
         }
     }
     
     func closeTouchMenu()
     {
-        touchMenuLayers.map({ $0.removeFromSuperlayer() })
-        touchMenuLabels.map({ $0.removeFromSuperview() })
+        _ = touchMenuLayers.map({ $0.removeFromSuperlayer() })
+        _ = touchMenuLabels.map({ $0.removeFromSuperview() })
         
         touchMenuLayers = [CAShapeLayer]()
         touchMenuLabels = [UILabel]()
@@ -110,7 +108,7 @@ class TouchMenuContentViewController: UIViewController
         touchMenuLayer.path = nil
     }
     
-    func openTouchMenu(locationInView: CGPoint, touchMenuItems: [TouchMenuItem], clearPath: Bool = true)
+    func openTouchMenu(_ locationInView: CGPoint, touchMenuItems: [TouchMenuItem], clearPath: Bool = true)
     {
         self.touchMenuItems = touchMenuItems
         
@@ -120,7 +118,7 @@ class TouchMenuContentViewController: UIViewController
         let sectionArc = (pi / segments)
         let paddingAngle = pi * 0.01
         
-        touchMenuLayer.strokeColor = UIColor.whiteColor().CGColor
+        touchMenuLayer.strokeColor = UIColor.white.cgColor
         touchMenuLayer.fillColor = nil
         touchMenuLayer.lineWidth = 5
         touchMenuLayer.lineJoin = kCALineJoinRound
@@ -128,13 +126,13 @@ class TouchMenuContentViewController: UIViewController
         
         if clearPath
         {
-            let originCircle = UIBezierPath(ovalInRect: CGRect(origin: CGPoint(x: origin.x - 4, y: origin.y - 4), size: CGSize(width: 8, height: 8)))
+            let originCircle = UIBezierPath(ovalIn: CGRect(origin: CGPoint(x: origin.x - 4, y: origin.y - 4), size: CGSize(width: 8, height: 8)))
             
             
-            touchMenuLayer.path = originCircle.CGPath
+            touchMenuLayer.path = originCircle.cgPath
         }
         
-        for var i = 0 ; i < touchMenuItems.count ; i++
+        for i in 0  ..< touchMenuItems.count 
         {
             let startAngle = ((sectionArc * CGFloat(i)) + paddingAngle) + pi
             let endAngle = ((sectionArc * CGFloat(i + 1)) - paddingAngle) + pi
@@ -142,7 +140,7 @@ class TouchMenuContentViewController: UIViewController
             let subLayer = CAShapeLayer()
             let subLayerPath = UIBezierPath()
             
-            subLayer.strokeColor = UIColor.whiteColor().CGColor
+            subLayer.strokeColor = UIColor.white.cgColor
             subLayer.fillColor = nil
             subLayer.lineCap = kCALineCapRound
             
@@ -153,15 +151,15 @@ class TouchMenuContentViewController: UIViewController
             let midAngle = (startAngle + endAngle) / 2
             
             let label = UILabel()
-            label.textColor = UIColor.blackColor()
+            label.textColor = UIColor.black
             label.text = " " + touchMenuItems[i].label + " "
             
             touchMenuLabels.append(label)
             
-            let labelWidth = label.intrinsicContentSize().width
-            let labelHeight = label.intrinsicContentSize().height
+            let labelWidth = label.intrinsicContentSize.width
+            let labelHeight = label.intrinsicContentSize.height
             
-            let labelXOffsetTweak = (midAngle > pi * 0.45 && midAngle < pi * 0.55) || (midAngle > pi * 1.45 && midAngle < pi * 1.55) ? label.intrinsicContentSize().width / 2 : 15
+            let labelXOffsetTweak = (midAngle > pi * 0.45 && midAngle < pi * 0.55) || (midAngle > pi * 1.45 && midAngle < pi * 1.55) ? label.intrinsicContentSize.width / 2 : 15
             
             let labelXOffset = (midAngle > pi * 0.5 && midAngle < pi * 1.5) ? -labelWidth + labelXOffsetTweak : -labelXOffsetTweak
             let labelYOffset = (midAngle > pi) ? -labelHeight : midAngle == pi ? -labelHeight * 0.5 : 0
@@ -171,29 +169,29 @@ class TouchMenuContentViewController: UIViewController
                 y: origin.y + labelYOffset + sin(midAngle) * labelRadius),
                 size: CGSize(width: labelWidth, height: labelHeight))
             
-            label.layer.backgroundColor = UIColor.whiteColor().CGColor
+            label.layer.backgroundColor = UIColor.white.cgColor
             label.layer.cornerRadius = 4
             label.layer.masksToBounds = false
             label.alpha = 0
             
-            subLayerPath.addArcWithCenter(origin, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+            subLayerPath.addArc(withCenter: origin, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
             
             // join arc to label
             
-            subLayerPath.moveToPoint(CGPoint(
+            subLayerPath.move(to: CGPoint(
                 x: origin.x + cos(midAngle) * radius,
                 y: origin.y + sin(midAngle) * radius))
             
-            subLayerPath.addLineToPoint(CGPoint(
+            subLayerPath.addLine(to: CGPoint(
                 x: origin.x + cos(midAngle) * (labelRadius + 12),
                 y: origin.y + sin(midAngle) * (labelRadius + 12)))
             
-            subLayer.path = subLayerPath.CGPath
+            subLayer.path = subLayerPath.cgPath
             
             touchMenuLayers.append(subLayer)
             view.addSubview(label)
             
-            UIView.animateWithDuration(0.1, animations: {label.alpha = 1})
+            UIView.animate(withDuration: 0.1, animations: {label.alpha = 1})
         }
     }
 }

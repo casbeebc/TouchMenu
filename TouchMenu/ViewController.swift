@@ -36,13 +36,13 @@ class ViewController: UIViewController, TouchMenuDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        let touches = touches as! Set<UITouch>
+        let touches = touches 
         
         for touch:UITouch in touches {
             
-            let view = touch.locationInView(self.view)
+            _ = touch.location(in: self.view)
             /*
             let node:NSObject? = self.nodeAtPoint(location) as? NSObject
             // Assumes sprites are named "sprite"
@@ -54,12 +54,12 @@ class ViewController: UIViewController, TouchMenuDelegate {
         }
     }
     
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        let touches = touches as! Set<UITouch>
+        let touches = touches 
         
         for touch:UITouch in touches {
-            let location = touch.locationInView(self.view)
+            _ = touch.location(in: self.view)
             /*
             let touchObj = touch as UITouch
             // Update the position of the sprites
@@ -70,19 +70,19 @@ class ViewController: UIViewController, TouchMenuDelegate {
         }
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        let touches = touches as! Set<UITouch>
+        let touches = touches 
         
         for touch:UITouch in touches {
             
-            if let exists:AnyObject? = selectedNodes[touch] {
+            if let _:AnyObject? = selectedNodes[touch] {
                 selectedNodes[touch] = nil
             }
         }
     }
     
-    func menuItemSelected(menu: TouchMenu, menuItem: TouchMenuItem) {
+    func menuItemSelected(_ menu: TouchMenu, menuItem: TouchMenuItem) {
         
     }
     

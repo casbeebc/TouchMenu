@@ -18,7 +18,7 @@ class TouchMenu: NSObject
     let view: UIView
     
     var tap: TouchMenuPanGestureRecognizer!
-    var previousTouchLocation = CGPointZero
+    var previousTouchLocation = CGPoint.zero
     
     var selectedNodes:[UITouch:NSObject] = [UITouch:NSObject]()
     
@@ -38,13 +38,13 @@ class TouchMenu: NSObject
         
         self.viewController = viewController
         self.view = view
-        self.view.userInteractionEnabled = true
+        self.view.isUserInteractionEnabled = true
         
         super.init();
         
         touchMenuContentViewController.touchMenu = self
         
-        tap = TouchMenuPanGestureRecognizer(target: self, action: "tapHandler:")
+        tap = TouchMenuPanGestureRecognizer(target: self, action: #selector(TouchMenu.tapHandler(_:)))
         view.addGestureRecognizer(tap)
     }
     
@@ -53,15 +53,15 @@ class TouchMenu: NSObject
         viewController.view.removeGestureRecognizer(tap)
     }
     
-    private func open(locationInView: CGPoint)
+    fileprivate func open(_ locationInView: CGPoint)
     {
-        touchMenuContentViewController.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-        touchMenuContentViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        touchMenuContentViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        touchMenuContentViewController.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         
         touchMenuContentViewController.view.frame = view.bounds
         
-        viewController.presentViewController(touchMenuContentViewController, animated: false) {
-            let touchMenuOrigin = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
+        viewController.present(touchMenuContentViewController, animated: false) {
+            _ = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2)
             self.touchMenuContentViewController.origin = locationInView
             self.touchMenuContentViewController.openTouchMenu(locationInView, touchMenuItems: self.touchMenuItems)
         }
@@ -70,18 +70,18 @@ class TouchMenu: NSObject
     func close()
     {
         touchMenuContentViewController.closeTouchMenu()
-        viewController.dismissViewControllerAnimated(false, completion: nil)
+        viewController.dismiss(animated: false, completion: nil)
     }
     
-    func tapHandler(recognizer: TouchMenuPanGestureRecognizer)
+    func tapHandler(_ recognizer: TouchMenuPanGestureRecognizer)
     {
-        if recognizer.state == UIGestureRecognizerState.Began
+        if recognizer.state == UIGestureRecognizerState.began
         {
-            open(recognizer.locationInView(view))
+            open(recognizer.location(in: view))
         }
-        else if recognizer.state == UIGestureRecognizerState.Changed
+        else if recognizer.state == UIGestureRecognizerState.changed
         {
-            touchMenuContentViewController.handleMovement(recognizer.locationInView(view))
+            touchMenuContentViewController.handleMovement(recognizer.location(in: view))
         }
         else
         {
@@ -93,7 +93,7 @@ class TouchMenu: NSObject
 
 extension CGPoint
 {
-    func distance(otherPoint: CGPoint) -> Float
+    func distance(_ otherPoint: CGPoint) -> Float
     {
         let xSquare = Float((self.x - otherPoint.x) * (self.x - otherPoint.x))
         let ySquare = Float((self.y - otherPoint.y) * (self.y - otherPoint.y))

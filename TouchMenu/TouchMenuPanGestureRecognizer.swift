@@ -10,10 +10,10 @@ import UIKit
 
 class TouchMenuPanGestureRecognizer: UIPanGestureRecognizer
 {
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent!)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent)
     {
-        super.touchesBegan(touches, withEvent: event)
+        super.touchesBegan(touches, with: event)
         
-        state = UIGestureRecognizerState.Began
+        state = UIGestureRecognizerState.began
     }
 }

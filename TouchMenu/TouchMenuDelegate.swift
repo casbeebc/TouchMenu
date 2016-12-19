@@ -11,5 +11,5 @@ import ObjectiveC
 
 protocol TouchMenuDelegate: NSObjectProtocol
 {
-    func menuItemSelected(menu: TouchMenu, menuItem: TouchMenuItem)
+    func menuItemSelected(_ menu: TouchMenu, menuItem: TouchMenuItem)
 }
